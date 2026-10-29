@@ -1,0 +1,3 @@
+# Initial minimum installation. Verified versions: requirements-lock-evotest.txt.
+-r upstream/EvoTest/requirements_rag.txt
+-r scripts/requirements-evotest-extra.txt

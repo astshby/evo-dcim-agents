@@ -1,0 +1,149 @@
+{
+  "kind": "local_setup_no_model_smoke",
+  "timestamp_utc": "2026-10-29T16:03:08.099494+00:00",
+  "python": "3.11.18",
+  "checks": [
+    {
+      "check": "seven_source_checkouts",
+      "passed": true
+    },
+    {
+      "check": "pip_check",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "preflight",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "contract_demo",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "jericho_environment",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "evotest_cli",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "chipmem_validate",
+      "passed": true,
+      "exit_code": 0
+    },
+    {
+      "check": "chipmem_synthetic",
+      "passed": true,
+      "exit_code": 0
+    }
+  ],
+  "source_checkouts": [
+    {
+      "name": "EvoTest",
+      "commit": "f92474ce83c7aec69e45c30ccfaf2b69e66823de",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "ACE",
+      "commit": "82709de050e1db6e6ef2f07bcb0393560b94992a",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "JitRL",
+      "commit": "143d22185d95fbf633a0befe6861d5e8b732543b",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "MemRL",
+      "commit": "c1b322ca43de36ddf64c6712f89d0095bfc35ce0",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "ChipMEM",
+      "commit": "39c22105acb5e0c18d14e0a9bf6f7ea213fc4cc3",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "gepa",
+      "commit": "80a62c879ecdeb8741faac72a844dceb1c18691f",
+      "origin_matches": true,
+      "clean": true
+    },
+    {
+      "name": "SkillOpt",
+      "commit": "bc0a392ef0a7f92840ec673d80204d34ced169d0",
+      "origin_matches": true,
+      "clean": true
+    }
+  ],
+  "model_calls": 0,
+  "embedding_calls": 0,
+  "dotenv_loading_disabled": true,
+  "all_passed": true,
+  "limits": [
+    "Not an EvoTest+LLM episode.",
+    "No ACE/JitRL/MemRL/GEPA/SkillOpt runtime exercised.",
+    "ChipMEM uses official scripted fixtures, not paper benchmarks.",
+    "Token encoding may download on first CLI import; this is not an air-gap test.",
+    "EvoTest upstream environment seed wiring remains unverified."
+  ],
+  "chipmem_result": {
+    "fail": 1,
+    "invalid": 0,
+    "mode": "chipmem",
+    "pass": 1,
+    "status": "completed",
+    "tasks": 2
+  },
+  "run_id": "local-20261029T160217697864Z",
+  "configured_at_local": "2026-10-30T00:04:34.143243+08:00",
+  "platform": "Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+  "environments": {
+    "EvoTest": {
+      "status": "local_smoke_passed",
+      "python": "3.11.18",
+      "dependency_lock": "requirements-lock-evotest.txt"
+    },
+    "ChipMEM": {
+      "status": "official_synthetic_passed",
+      "runtime": "standard_library"
+    },
+    "ACE": {
+      "status": "source_only",
+      "full_runtime_installed": false
+    },
+    "JitRL": {
+      "status": "source_only",
+      "full_runtime_installed": false
+    },
+    "MemRL": {
+      "status": "source_only",
+      "full_runtime_installed": false
+    },
+    "gepa": {
+      "status": "source_only",
+      "full_runtime_installed": false
+    },
+    "SkillOpt": {
+      "status": "source_only",
+      "full_runtime_installed": false
+    }
+  },
+  "openc2": {
+    "role": "staged_application_and_hardware_validation_target",
+    "commit": "df0af784a8a56388cee1a5dce6660b7aa4516692",
+    "clean": true
+  },
+  "public_repository": "https://github.com/astshby/evo-dcim-agents"
+}

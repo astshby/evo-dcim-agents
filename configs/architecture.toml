@@ -1,0 +1,60 @@
+# 研究假设，先逐篇独立研究，参见 docs/STUDY_PLAN.md。
+# 组合工程的配置蓝图。上游 main.py 不识别此文件；当前部署脚本也不会读取它。
+# 所有 future 字段均表示接入设计，不代表插件已经实现。
+[project]
+name = "evo-dcim-agents"
+stage = "framework-study"
+dcim_enabled = false
+
+[environment]
+adapter = "jericho"
+game = "detective"
+smoke_episodes = 2
+smoke_max_steps = 20
+memory_scope = "run"
+
+[evotest]
+controller = "sole_episode_owner"
+# 第一阶段保留官方树节点评分；另建paper_bandit模式才能称论文式UCB。
+selection_mode = "upstream_tree"
+actor_model_env = "EVOTEST_ACTOR_MODEL"
+evolver_model_env = "EVOTEST_EVOLVER_MODEL"
+
+[ace]
+role = "global_playbook_manager"
+writer = "curator_only"
+scope_keys = ["environment", "task_family", "task_id"]
+snapshot_boundary = "comparison_batch"
+commit_boundary = "after_batch"
+inject_only_relevant_rules = true
+
+[jitrl]
+role = "action_selector"
+# paper_logit为适配目标，upstream_score为独立保真模式。不能混称。
+scoring_mode = "paper_logit"
+candidate_count = 4
+prompt_update_enabled = false
+state_provider = "shared_state_adapter"
+prior_mode = "verbalized_to_log_probability"
+update_returns = "after_episode"
+embedding_backend = "explicitly_configured"
+
+[comparison]
+score_keys = ["task_id", "config_id", "playbook_version", "selector_version"]
+record_memory_snapshot = true
+same_action_information = true
+separate_runs_for_ablations = true
+
+[memrl_future]
+enabled = false
+hook = "select_memories_and_update_used_memory_utility"
+utility_field = "memory_utility_q"
+
+[chipmem_future]
+enabled = false
+hook = "observe_tool_outcome_and_verified_episode"
+promotion_requires_verifier = true
+
+[offline_optimizers_future]
+gepa_enabled = false
+skillopt_enabled = false

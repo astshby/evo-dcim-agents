@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "audit_date": "2026-10-29",
+  "scope": "source commits only; this is not a dependency lock or a benchmark reproduction",
+  "repositories": [
+    {
+      "name": "EvoTest",
+      "paper_arxiv": "2510.13220",
+      "url": "https://github.com/yf-he/EvoTest.git",
+      "branch": "main",
+      "commit": "f92474ce83c7aec69e45c30ccfaf2b69e66823de",
+      "role": "primary_episode_controller",
+      "install_now": true
+    },
+    {
+      "name": "ACE",
+      "paper_arxiv": "2510.04618",
+      "url": "https://github.com/ace-agent/ace.git",
+      "branch": "main",
+      "commit": "82709de050e1db6e6ef2f07bcb0393560b94992a",
+      "role": "global_playbook_components_to_adapt",
+      "install_now": false
+    },
+    {
+      "name": "JitRL",
+      "paper_arxiv": "2601.18510v4",
+      "url": "https://github.com/liushiliushi/JitRL.git",
+      "branch": "master",
+      "commit": "143d22185d95fbf633a0befe6861d5e8b732543b",
+      "role": "action_selector_components_to_adapt",
+      "install_now": false
+    },
+    {
+      "name": "MemRL",
+      "paper_arxiv": "2601.03192v2",
+      "url": "https://github.com/MemTensor/MemRL.git",
+      "branch": "main",
+      "commit": "c1b322ca43de36ddf64c6712f89d0095bfc35ce0",
+      "role": "optional_future_module",
+      "install_now": false
+    },
+    {
+      "name": "ChipMEM",
+      "paper_arxiv": "2609.27067v1",
+      "url": "https://github.com/aalrabah/ChipMEM.git",
+      "branch": "main",
+      "commit": "39c22105acb5e0c18d14e0a9bf6f7ea213fc4cc3",
+      "role": "optional_future_module",
+      "install_now": false
+    },
+    {
+      "name": "gepa",
+      "paper_arxiv": "2507.19457",
+      "url": "https://github.com/gepa-ai/gepa.git",
+      "branch": "main",
+      "commit": "80a62c879ecdeb8741faac72a844dceb1c18691f",
+      "role": "optional_future_module",
+      "install_now": false
+    },
+    {
+      "name": "SkillOpt",
+      "paper_arxiv": "2605.23904",
+      "url": "https://github.com/microsoft/SkillOpt.git",
+      "branch": "main",
+      "commit": "bc0a392ef0a7f92840ec673d80204d34ced169d0",
+      "role": "optional_future_module",
+      "install_now": false
+    }
+  ],
+  "role_note": "Roles describe the prior integration proposal, not a final architecture decision; all seven frameworks are independent study targets."
+}

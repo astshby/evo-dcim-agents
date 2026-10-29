@@ -1,0 +1,34 @@
+{
+  "audit_date": "2026-10-29",
+  "artifact_kind": "deployment_helpers_and_interface_teaching_skeleton",
+  "source_versions": "../repos.lock.json",
+  "performed": [
+    {"check": "Python AST parse for all 5 delivered Python files", "status": "PASS"},
+    {"check": "Bash syntax for run_evotest_baseline.sh", "status": "PASS"},
+    {"check": "JSON source manifest and optional audit record parsing", "status": "PASS"},
+    {"check": "TOML parsing and optional features disabled", "status": "PASS"},
+    {"check": "bootstrap_sources.py --plan", "status": "PASS", "network_or_mutations": false},
+    {"check": "Backend patch exact change, backup, idempotency, unknown-source refusal, LF/CRLF preservation and dry-run", "status": "PASS", "target": "temporary source copies only"},
+    {"check": "Backend patch source fingerprint independently matched to official Git blob", "status": "PASS", "git_blob_sha": "90d3b3c4650503987d2e5ea2a2215eb178a3797a", "normalized_lf_sha256": "dc1708a194401403b1cd9c6c12d37d61b045cf12d59e15863d9349e0ec4686d6"},
+    {"check": "Baseline dry-run arguments parsed by the upstream parse_args function", "status": "PASS", "episodes": 2, "steps_per_episode": 20, "actor_and_evolver_models_explicit": true},
+    {"check": "Missing explicit model variables block baseline launch", "status": "PASS"},
+    {"check": "Preflight reports missing dependencies and ROM in the partial audit snapshot", "status": "EXPECTED_NOT_READY", "missing_dependencies": ["openai", "tiktoken", "python-dotenv", "jericho"], "present_imported_dependencies": ["numpy", "scikit-learn"]},
+    {"check": "Offline interface demo", "status": "PASS", "scripted_inputs": true, "model_calls": 0, "upstream_frameworks_executed": [], "verified_behaviors": ["Episode keeps ace-v1 after a later ace-v2 commit", "Decision records injected memory IDs separately from retrieval hits; no utility update is run", "Explicit log-prior plus advantage chooses the expected scripted action", "Scripted tool outcome reaches the observer", "Output episode context links the transition and event to the actual parent configuration"]},
+    {"check": "ChipMEM official synthetic validate and run", "status": "PASS", "task_passes": 1, "task_failures": 1, "statistical_updates": 6, "llm_or_eda_execution": false, "details": "optional_audit.json"}
+  ],
+  "not_performed": [
+    "Full upstream dependency installation",
+    "Successful full Git clone through the shell network",
+    "Real Jericho environment plus LLM episodes",
+    "Actual ACE/JitRL integration into EvoTest",
+    "MemRL or ChipMEM integration into EvoTest",
+    "Paper benchmark performance reproduction",
+    "DCIM or physical-design tool execution"
+  ],
+  "limitations": [
+    "The source manifest pins commits, not Python dependency versions or hosted model versions.",
+    "The execution environment shell network proxy was unreachable; source auditing used GitHub connector reads.",
+    "Partial audit source snapshots are not complete checkouts and are not distributed in this artifact.",
+    "No API credentials were read and no paid model calls were made."
+  ]
+}

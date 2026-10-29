@@ -1,0 +1,27 @@
+# Restore third-party checkouts from repos.lock.json.
+/upstream/
+/envs/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+/runs/
+/output/
+/outputs/
+/state/
+/cache/
+/.cache/
+/local/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.pdf
+*.zip
+*.tar*
+*.whl
+*.log
+.DS_Store
