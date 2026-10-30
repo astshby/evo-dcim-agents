@@ -1,17 +1,29 @@
-# 研究目标与工作约定
+# Public development instructions
 
-主线：逐篇理解 Agent 论文的机制、源码和实验边界，研究其如何服务 DCIM Macro 层次化物理设计。
-OpenC² 是阶段性的硬件学习、复现及验证对象。不要把跑通 OpenC² 当作总目标完成。
+This repository develops a DCIM agent controller. You are maintaining framework code,
+not running an authorized physical-design experiment. Start with `docs/HANDOFF.md`,
+`docs/UPDATE_POLICY.md`, and `docs/IMPLEMENTATION_STATUS.md`.
 
-- 当前先配置源码和本地环境。模型服务稍后由用户配置；不读取其他项目密钥，不自行运行付费模型实验。
-- 按 EvoTest、ACE、JitRL、MemRL、ChipMEM、GEPA、SkillOpt 逐个研究。安装先后不代表最终架构取舍。
-- 先独立理解，再比较或组合。configs/architecture.toml 和 integration/ 是组合假设及教学骨架，不能称已实现集成。
-- 每轮只推进一个可验收的小目标：概念、实际文件、有限操作、预期结果、验收证据。
-- 区分已验证事实、调研记录、推测、待检查项；文件存在、依赖可导入、链路跑通、论文指标复现分别记录。
-- 论文版本以本地 PDF 为准，源码以 repos.lock.json 固定提交为准。逐项记录二者差异。
-- 记录可观察的输入、动作、环境反馈和结果，不要求模型私有思维。
-- 不把记忆效用 Q、动作价值 Q、配置得分、相似度混为一个量。
-- 运行使用独立 runs/<run_id>，保留原始日志；比较固定任务、模型、动作信息、预算和记忆版本。
-- upstream/ 保持原样。后端补丁只应用到单独研究副本，保留原始基线。
-- WSL 负责 Python/源码/实验，Windows 负责 KLayout/Vivado。保留现有 OpenC² 环境和工程。
-- Git 仅追踪本项目文档、配置、脚本及精选验证摘要；不提交第三方完整仓库、论文 PDF、环境、密钥或运行缓存。
+## Non-negotiable boundaries
+
+- One work = one fixed PDK/environment/objective configuration. Session memories belong to that work.
+- Episode memory is a compact state-transition card with evidence references, not a full chat replay.
+- Session interior: facts and numeric statistics may change. ACE and Skill text may change only after session close.
+- Separate tool success, physical validity, PPA benefit and transferable knowledge. Unknown is not failure.
+- Use upstream pinned implementations as references. Record deviations; do not claim full paper reproduction.
+- Mock/replay evidence never becomes real PPA evidence or source-verified production knowledge.
+- No automatic paid calls, dependency installation, real EDA, secrets inspection or remote jobs in tests.
+- Do not copy proprietary PDK, cell libraries, credentials, auth.json or license files into Git or model input.
+- Never replace independent evaluation with an agent's own success claim.
+- Avoid new frameworks or heavyweight dependencies unless the next acceptance target requires them.
+
+## Validation and handoff
+
+Run `python -m unittest discover -s tests -v` and a new-path `python -m evo_dcim demo --root ...`.
+Update implementation status and development log with what actually ran and what did not.
+Do not describe scaffolding, fake executables or synthetic metrics as real integration.
+
+Runtime instructions are `templates/AGENTS.runtime.md`; only that template is copied to
+runtime workspaces. Do not copy developer instructions or this checkout to runtime.
+A local `AGENTS.override.md` is ignored by Git; if used, explicitly read this file too,
+because Codex chooses the override instead of same-directory AGENTS.md.

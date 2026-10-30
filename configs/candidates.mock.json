@@ -1,0 +1,4 @@
+[
+  {"id":"layout-a","source":"fixture-structure","operation":"synthetic_test","parameters":{"scenario":"improve"},"prior":0.6},
+  {"id":"layout-b","source":"fixture-routing","operation":"synthetic_test","parameters":{"scenario":"regress"},"prior":0.4}
+]

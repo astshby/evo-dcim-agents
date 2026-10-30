@@ -1,29 +1,50 @@
 # evo-dcim-agents
 
-逐篇理解 Agent 论文的机制与实现，再研究它们如何用于 DCIM Macro 层次化物理设计。OpenC² 是阶段性的学习、复现和验证对象。
+面向 DCIM 持续设计优化的 **Codex + EDA 外层控制框架**。借鉴 EvoTest、JitRL、MemRL、ChipMEM、ACE、SkillOpt、GEPA 的现有代码机制；不是把七个完整 Agent 串起来，也不是论文复现。
 
-本仓库追踪研究说明、固定源码清单、部署脚本与验证摘要。七个上游项目保存在本机 upstream/，由清单恢复，不上传第三方完整代码。
+**当前版本：可测试的初始化框架。** 已实现 work/session/episode 状态、压缩记忆、Mock 闭环、统计结算、session 边界文本更新、Codex 独立工作区和显式 CLI 启动接口。**没有接通真实 PDK/Cadence，没有完整复现七个算法，没有验证真实 PPA 或跨 PDK 迁移。**
 
-- [研究路线与逐篇验收](docs/STUDY_PLAN.md)
-- [本地配置与复跑](docs/LOCAL_SETUP.md)
-- [进度与证据](notes/PROGRESS.md)
-- [此前部署审计说明](docs/DEPLOYMENT_REFERENCE.md)
-- [源码版本清单](repos.lock.json)
+## 最快运行
 
-## 当前范围
+Python 3.11+，核心仅标准库，无需 API key、模型、PDK、EDA 或安装第三方依赖。在仓库根目录：
 
-源码与环境配置阶段；模型服务稍后填写。EvoTest 是首个部署对象，并非已确定的最终主控制器。
-ACE/JitRL/MemRL/GEPA/SkillOpt 当前先供源码阅读，不声称运行环境全部就绪。
-ChipMEM 标准库合成样例可以独立运行。
+```bash
+python -m unittest discover -s tests -v
+python -m evo_dcim demo --root ./work/demo-001
+python -m evo_dcim status --work ./work/demo-001
+```
 
-configs/architecture.toml 是此前提出的组合蓝图，integration/ 是手写输入的接口演示；二者都不构成多框架集成或论文效果复现的证据。
+Demo 使用全新目录，执行三个明确标记为 synthetic 的 episode（改善、环境阻塞、设计检查失败），不调用模型或 EDA。拒绝覆盖已有 work。查看 `work/demo-001/sessions/S0001/report.md`。
 
-## 本地无模型检查
+## 手动配置一轮
 
-在 WSL 的本项目根目录：
+```bash
+python -m evo_dcim init --work ./work/manual-001 --config configs/work.mock.json
+python -m evo_dcim session-start --work ./work/manual-001
+python -m evo_dcim episode-start --work ./work/manual-001 --session S0001 --intent "测试控制闭环" --state-key floorplan/congested
+python -m evo_dcim plan --work ./work/manual-001 --session S0001 --episode E0001 --candidates configs/candidates.mock.json
+python -m evo_dcim mock-run --work ./work/manual-001 --session S0001 --episode E0001
+python -m evo_dcim session-close --work ./work/manual-001 --session S0001
+```
 
-~~~bash
-envs/evotest/bin/python scripts/local_smoke.py
-~~~
+一份 work 配置固定 PDK、环境、评价阶段、目标和预算；初始化后不可原地修改。所有 session 共享它，经验只属于该 work。ACE/Skill 在 session 内冻结，事实和数值统计可以更新。
 
-安装步骤见 [配置说明](docs/LOCAL_SETUP.md)。该检查不调用 LLM；完整日志在忽略的 runs/ 下，精选结果见 verification/local_setup.json。
+## 接口与配置文档
+
+- [结构与执行逻辑](docs/ARCHITECTURE.md)
+- [更新策略与评价边界](docs/UPDATE_POLICY.md)
+- [环境、命令与 Codex 配置](docs/ENVIRONMENT.md)
+- [参考论文、源码与当前吸收情况](docs/REFERENCES.md)
+- **[开发者与后续 Agent 交接入口](docs/HANDOFF.md)**
+- [实现状态和已知限制](docs/IMPLEMENTATION_STATUS.md)
+- [开发记录](docs/DEVELOPMENT_LOG.md)
+
+## 三种 Agent 指令不可混用
+
+`AGENTS.md`（复数）是公开的**框架开发**指令；`templates/AGENTS.runtime.md` 是发布给 **DCIM 运行 worker** 的模板。`templates/AGENTS.override.local.example.md` 可由开发者复制为本地 `AGENTS.override.md`，该文件被 Git 忽略。不要把开发 override 发布到运行工作区。
+
+Codex 适配默认只准备工作区和命令；只有显式 `codex-run --execute` 才可能消耗额度。它的报告不是物理评价，不会自动结算 episode。详细说明见环境文档。
+
+## 升级说明
+
+本次用新的最小主循环替代旧 Jericho 部署脚手架；旧版仍保留在 Git 历史 `c84891dcd52c6119e51693ec28b9e067b9ac2c08`。保留七仓库的固定提交清单，不沿用旧文档中的“已安装/已验证”声明。这里的新测试证据只来自本次离线运行。

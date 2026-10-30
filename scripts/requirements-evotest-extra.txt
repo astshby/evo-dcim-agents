@@ -1,9 +1,0 @@
-# Supplemental dependencies for yf-he/EvoTest at
-# f92474ce83c7aec69e45c30ccfaf2b69e66823de.
-# Install upstream requirements_rag.txt FIRST (numpy and openai).
-# This is a dependency list, not a fully pinned reproducibility lockfile.
-jericho
-tiktoken
-python-dotenv
-# evaluation.py imports RAGAgent even when --agent_type=our.
-scikit-learn
